@@ -1,59 +1,59 @@
 import os
 
-# Define o tabuleiro inicial
-tabuleiro = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+# Define the initial board
+board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
-# Define as funções
+# Define the functions
 
-def desenha_tabuleiro():
+def draw_board():
     os.system("cls")
     print("\n")
-    print(" " + tabuleiro[0] + " | " + tabuleiro[1] + " | " + tabuleiro[2] + " ")
+    print(" " + board[0] + " | " + board[1] + " | " + board[2] + " ")
     print("---|---|---")
-    print(" " + tabuleiro[3] + " | " + tabuleiro[4] + " | " + tabuleiro[5] + " ")
+    print(" " + board[3] + " | " + board[4] + " | " + board[5] + " ")
     print("---|---|---")
-    print(" " + tabuleiro[6] + " | " + tabuleiro[7] + " | " + tabuleiro[8] + " ")
+    print(" " + board[6] + " | " + board[7] + " | " + board[8] + " ")
     print("\n")
 
-def jogada(jogador):
-    posicao = int(input("Digite a posição para jogar (1-9): ")) - 1
-    if tabuleiro[posicao] == " ":
-        tabuleiro[posicao] = jogador
+def play_move(player):
+    position = int(input("Enter the position to play (1-9): ")) - 1
+    if board[position] == " ":
+        board[position] = player
     else:
-        print("Posição já jogada!")
-        jogada(jogador)
+        print("Position already played!")
+        play_move(player)
 
-def verifica_ganhador():
+def check_winner():
     for i in range(0, 9, 3):
-        if tabuleiro[i] == tabuleiro[i+1] and tabuleiro[i+1] == tabuleiro[i+2] and tabuleiro[i] != " ":
-            return tabuleiro[i]
+        if board[i] == board[i+1] and board[i+1] == board[i+2] and board[i] != " ":
+            return board[i]
     for i in range(0, 3):
-        if tabuleiro[i] == tabuleiro[i+3] and tabuleiro[i+3] == tabuleiro[i+6] and tabuleiro[i] != " ":
-            return tabuleiro[i]
-    if tabuleiro[0] == tabuleiro[4] and tabuleiro[4] == tabuleiro[8] and tabuleiro[0] != " ":
-        return tabuleiro[0]
-    if tabuleiro[2] == tabuleiro[4] and tabuleiro[4] == tabuleiro[6] and tabuleiro[2] != " ":
-        return tabuleiro[2]
-    if " " not in tabuleiro:
-        return "Empate"
+        if board[i] == board[i+3] and board[i+3] == board[i+6] and board[i] != " ":
+            return board[i]
+    if board[0] == board[4] and board[4] == board[8] and board[0] != " ":
+        return board[0]
+    if board[2] == board[4] and board[4] == board[6] and board[2] != " ":
+        return board[2]
+    if " " not in board:
+        return "Draw"
     return None
 
-# Define a variável do jogador atual
-jogador_atual = "X"
+# Define the current player variable
+current_player = "X"
 
-# Inicia o jogo
+# Start the game
 while True:
-    desenha_tabuleiro()
-    jogada(jogador_atual)
-    ganhador = verifica_ganhador()
-    if ganhador is not None:
-        desenha_tabuleiro()
-        if ganhador == "Empate":
-            print("Empate!")
+    draw_board()
+    play_move(current_player)
+    winner = check_winner()
+    if winner is not None:
+        draw_board()
+        if winner == "Draw":
+            print("It's a draw!")
         else:
-            print(ganhador + " ganhou!")
+            print(winner + " wins!")
         break
-    if jogador_atual == "X":
-        jogador_atual = "O"
+    if current_player == "X":
+        current_player = "O"
     else:
-        jogador_atual = "X"
+        current_player = "X"
